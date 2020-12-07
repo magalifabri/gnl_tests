@@ -19,4 +19,5 @@ int main()
     if (ret != 0)
         free(line);
     close(fd);
+    system("leaks a.out > leaks_test_basic.txt");
 }

@@ -24,5 +24,7 @@ int main()
     get_next_line(fd2, &line);
     printf("%s\n", line);
     free(line);
+    close(fd1);
+    close(fd2);
     system("leaks a.out > leaks_test_multi_fds.txt");
 }

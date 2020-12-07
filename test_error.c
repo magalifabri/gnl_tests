@@ -6,7 +6,6 @@
 int main()
 {
     char *line;
-    // int fd;
 
     // TEST: FD = -1
     printf("with fd = -1, get_next_line returns: %d\n", get_next_line(-1, &line));
