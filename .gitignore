@@ -2,4 +2,5 @@ a.out
 leaks*
 valgrind*
 *.dSYM
-outputs_actual/*
+outputs_actual
+compare_files

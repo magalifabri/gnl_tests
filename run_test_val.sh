@@ -1,8 +1,13 @@
 #! /bin/bash
 
 CC="gcc"
-CFLAGS="-Wall -Wextra -Werror"
+CFLAGS="-g -Wall -Wextra -Werror"
 SRC="../get_next_line.c ../get_next_line_utils.c"
+VALGRIND="valgrind \
+	--leak-check=full \
+	--show-leak-kinds=all \
+	--track-origins=yes \
+	--log-file=valgrind-report.txt"
 
 YELLOW="\033[0;33m"
 RED="\033[1;31m"
@@ -15,9 +20,10 @@ mkdir outputs_actual > /dev/null 2>&1
 # Create the compare_files executable
 gcc compare_files.c -o compare_files
 
-# Function to check for leaks
+# Function to test for leaks
 f_check_leaks() {
-	if [[ $(grep "0 leaks" leaks.txt) ]]
+	if [[ $(grep "definitely lost: 0" valgrind-report.txt) \
+	&& $(grep "indirectly lost: 0" valgrind-report.txt) ]]
 	then
 		printf $GREEN"LEAKS: OK\n"$RESET
 	else
@@ -36,14 +42,15 @@ f_check_output () {
 # Function that runs tests
 f_run_test() {
 	printf $YELLOW$2"\n"$RESET
-	$CC $CFLAGS -D BUFFER_SIZE=$4 $SRC $3 && ./a.out > ./outputs_actual/$1
+	$CC $CFLAGS -D BUFFER_SIZE=$4 $SRC $3
+	$VALGRIND ./a.out > ./outputs_actual/$1 2> /dev/null
 	f_check_output $1
 	f_check_leaks
 	printf "\n"
 }
 
 # Tests with differing buffer sizes
-#			output file ($1)		test description ($2)		test source file ($3)	buffer size ($4)
+# function	output file ($1)		test description ($2)		test source file ($3)	buffer size ($4)
 f_run_test  buffer_size_-1.txt		test:BUFFER_SIZE=-1			test_basic.c			-1
 f_run_test  buffer_size_0.txt		test:BUFFER_SIZE=0			test_basic.c			0
 f_run_test  buffer_size_1.txt		test:BUFFER_SIZE=1			test_basic.c			1
