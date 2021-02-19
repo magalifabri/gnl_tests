@@ -6,7 +6,7 @@ GREEN="\033[1;32m"
 RESET="\033[0m"
 
 f_check_leaks() {
-    if [[ $(cat leaks.txt | grep "0 leaks") ]]
+    if [[ $(grep "0 leaks" leaks.txt) ]]
     then
         printf $GREEN"LEAKS: OK\n"$RESET
     else
