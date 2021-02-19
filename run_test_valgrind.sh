@@ -5,7 +5,6 @@ RESET="\033[0m"
 
 printf $YELLOW$YELLOW"test: BUFFER_SIZE=-1\n"$RESET
 gcc -Wall -Wextra -Werror -D BUFFER_SIZE=-1 ../get_next_line.c ../get_next_line_utils.c test_basic.c && ./a.out
-cat leaks.txt | grep '0 leaks'
 printf "\n"
 printf $YELLOW"test: BUFFER_SIZE=0\n"$RESET
 gcc -Wall -Wextra -Werror -D BUFFER_SIZE=0 ../get_next_line.c ../get_next_line_utils.c test_basic.c && ./a.out
@@ -15,7 +14,7 @@ gcc -Wall -Wextra -Werror -D BUFFER_SIZE=1 ../get_next_line.c ../get_next_line_u
 printf "\n"
 printf $YELLOW"test: BUFFER_SIZE=8\n"$RESET
 gcc -g -Wall -Wextra -Werror -D BUFFER_SIZE=8 ../get_next_line.c ../get_next_line_utils.c test_basic.c
-valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind-test_basic.txt ./a.out
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind-test_basic.txt ./a.out > /dev/null 2>&1
 printf "\n"
 printf $YELLOW"test: BUFFER_SIZE=32\n"$RESET
 gcc -Wall -Wextra -Werror -D BUFFER_SIZE=32 ../get_next_line.c ../get_next_line_utils.c test_basic.c && ./a.out

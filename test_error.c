@@ -12,5 +12,5 @@ int main()
     // TEST: FD = 1000000000
     printf("with fd = 1000000000, get_next_line returns: %d\n", get_next_line(1000000000, &line));
 
-    system("leaks a.out > leaks_test_error.txt");
+    system("leaks a.out > leaks.txt");
 }

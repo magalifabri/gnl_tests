@@ -21,5 +21,5 @@ int main()
     if (line)
         free(line);
     close(fd);
-    system("leaks a.out > leaks_test_basic.txt");
+    system("leaks a.out > leaks.txt");
 }
