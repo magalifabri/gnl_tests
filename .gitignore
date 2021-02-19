@@ -4,3 +4,4 @@ valgrind*
 *.dSYM
 outputs_actual
 compare_files
+quick_push.sh
