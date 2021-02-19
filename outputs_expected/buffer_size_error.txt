@@ -1,0 +1,2 @@
+with fd = -1, get_next_line returns: -1
+with fd = 1000000000, get_next_line returns: -1

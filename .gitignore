@@ -2,3 +2,4 @@ a.out
 leaks*
 valgrind*
 *.dSYM
+outputs_actual/*

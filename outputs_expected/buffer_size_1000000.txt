@@ -1,0 +1,7 @@
+ret: 1 | 
+ret: 1 | 1st line: test test
+ret: 1 | 
+ret: 1 | 2nd line: 1, 2, 3
+ret: 1 | 
+ret: 1 | 3rd line: is it working?
+ret: 0 | 
