@@ -9,14 +9,16 @@ int main()
     int fd;
     int ret;
 
+    line = NULL;
     fd = open("textfile.txt", O_RDONLY);
     while ((ret = get_next_line(fd, &line) > 0))
     {
         printf("ret: %d | %s\n", ret, line);
         free(line);
+        line = NULL;
     }
     printf("ret: %d | %s\n", ret, line);
-    if (ret != 0)
+    if (line)
         free(line);
     close(fd);
     system("leaks a.out > leaks_test_basic.txt");

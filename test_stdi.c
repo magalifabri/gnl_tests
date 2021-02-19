@@ -10,14 +10,16 @@ int main()
     int fd = 0;
     int ret;
 
+    line = NULL;
     while ((ret = get_next_line(fd, &line) > 0))
     {
         printf("ret: %d | %s\n", ret, line);
         system("leaks a.out > leaks_test_stdi.txt");
         free(line);
+        line = NULL;
     }
     printf("ret: %d | %s\n", ret, line);
-    if (ret != 0)
+    if (line)
         free(line);
     close(fd);
 }
